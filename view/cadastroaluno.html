@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="page-header">
+        <h2><b>CADASTRO DE ALUNO</b></h2>
+    </div>
+    <br>
+    <br>
+    <form>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+
+            <div class="form-group">
+                <select class="form-control" ng-model="aluno.CursoId">
+                    <option value="">Selecionar Curso</option>
+                    <option ng-repeat="curso in cursos" ng value="{{curso.id}}">{{curso.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input required ng-model="aluno.nome" id="nome" type="text" class="form-control" name="nome" placeholder="Nome:">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input required ng-model="aluno.cpf" id="cpf" type="text" class="form-control" name="cpf" placeholder="CPF:">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input required ng-model="aluno.email" id="email" type="text" class="form-control" name="email"
+                   placeholder="E-mail:">
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-10">
+            <button ng-disabled="!aluno.nome" class="btn btn-primary" ng-click="cadastrarAluno(aluno)">
+                <span class="glyphicon glyphicon-floppy-saved"></span>
+                Salvar
+            </button>
+        </div>
+            <nav class="col-md-1">
+                <ul>
+                    <a href="#!aluno" class="btn btn-info" role="button">
+                        <span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;Voltar</a>
+                </ul>
+            </nav>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="page-header">
+        <h2><b>CADASTRO DE DISCIPLINA</b></h2>
+    </div>
+    <br>
+    <br>
+
+    <form>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+
+            <div class="form-group">
+                <select class="form-control" ng-model="disciplina.CursoId">
+                    <option value="">Selecionar Curso</option>
+                    <option ng-repeat="curso in cursos" ng value="{{curso.id}}">{{curso.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+            <input required ng-model="disciplina.nome" id="nome" type="text" class="form-control" name="nome"
+                   placeholder="Nome:">
+        </div>
+        <br>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-exclamation-sign"></i></span>
+            <input ng-model="disciplina.descricao" id="descricao" type="text" class="form-control" name="descricao"
+                   placeholder="Descrição:">
+        </div>
+        <br>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-10">
+                <button ng-disabled="!disciplina.nome" class="btn btn-primary" role="button"
+                        ng-click="cadastrarDisciplina(disciplina)">
+                    <span class="glyphicon glyphicon-floppy-saved"></span> Salvar
+                </button>
+
+            </div>
+
+            <div>
+                <nav class="col-md-1">
+                    <ul>
+                        <a href="#!disciplina" class="btn btn-info" role="button">
+                            <span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;Voltar</a>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </form>
+</div>

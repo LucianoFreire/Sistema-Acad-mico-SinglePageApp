@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="page-header">
+        <h2><b>HOME</b></h2>
+    </div>
+
+    <form>
+        <div class="input-group" ng-model="home.nomeId">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input required ng-model="nome" id="nome" type="text" class="form-control" name="nome" placeholder="Nome">
+        </div>
+        <hr>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input ng-model="email" id="email" type="text" class="form-control" name="email" placeholder="E-mail">
+        </div>
+        <hr>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input ng-model="info" id="info" type="text" class="form-control" name="info" placeholder="Informações">
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn btn-primary" ng-disabled="!home.nome" ng-click="salvarHome(home)">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    Salvar
+                </button>
+
+            </div>
+            <div class="col-md-8">
+                <input type="text" ng-model="procurar" class="form-control" placeholder="Buscar...">
+            </div>
+
+            <div>
+                <nav class="col-md-1">
+                    <ul>
+                        <button class="btn btn-info">Anterior</button>
+                    </ul>
+                </nav>
+            </div>
+
+            <div>
+                <nav class="col-md-1">
+                    <ul>
+                        <button class="btn btn-info">Proxima</button>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <hr>
+    </form>
+</div>
+
+<table class="table table-bordered table-hover">
+    <caption><b>TABELA INICIAL</b></caption>
+
+    <thead>
+    <!--CALUNAS-->
+    <tr>
+        <th>NOME</th>
+        <th>EMAIL</th>
+        <th>INFORMAÇÕES</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!--LINHA 1-->
+    <tr>
+        <td>{{nome}}</td>
+        <td>{{email}}</td>
+        <td>{{info}}</td>
+    </tr>
+    </tbody>
+</table>
