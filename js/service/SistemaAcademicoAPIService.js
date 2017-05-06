@@ -100,6 +100,31 @@ angular.module("singlepageapp").factory("SistemaAcademicoAPIService", function (
     };
 
 
+    var _listagemDeSemestres = function () {
+        return $http({
+            method: "GET",
+            url: "http://siscadcpwiv.herokuapp.com/semestre/list",
+        });
+    };
+
+    var _listarTodosSemestres = function(){
+
+        return $http({
+            method:"GET",
+            url:"http://siscadcpwiv.herokuapp.com/semestre/list/",
+        });
+    };
+
+    var _listarAlunoPorDisciplina = function(id){
+        return $http({
+            method:"GET",
+            url: "http://siscadcpwiv.herokuapp.com/aluno/curso/"+id,
+
+        });
+    };
+
+
+
     return {
 
         listarCursos: _listarCursos,
@@ -113,7 +138,10 @@ angular.module("singlepageapp").factory("SistemaAcademicoAPIService", function (
         listarCursoPorPagina: _listarCursoPorPagina,
         listarDisciplinaPorPagina: _listarDisciplinaPorPagina,
         listarAlunosPorPagina: _listarAlunosPorPagina,
-        listagemTodosCursos: _listagemTodosCursos
+        listagemTodosCursos: _listagemTodosCursos,
+        listagemDeSemestres: _listagemDeSemestres,
+        listarTodosSemestres: _listarTodosSemestres,
+        listarAlunoPorDisciplina: _listarAlunoPorDisciplina
     }
 
 });

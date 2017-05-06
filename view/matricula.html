@@ -1,0 +1,104 @@
+<div class="container-fluid">
+    <div class="page-header">
+        <h2><b>MATRICULA</b></h2>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-xs-6">
+
+        <div>
+            <select class="form-control" ng-model="selectedCurso" ng-change="buscarDisciplinaPorCurso(selectedCurso)">
+                <option value="">Selecione um Curso</option>
+                <option ng-repeat="curso in cursos" ng value="{{curso.id}}">{{curso.nome}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div>
+            <select class="form-control" ng-model="selectedDisciplina"
+                    ng-change="buscarDisciplinaPorCurso(selectedDisciplina)">
+                <option value="">Selecione uma Disciplina</option>
+                <option ng-repeat="disciplina in disciplinas" ng value="{{disciplina.id}}">{{disciplina.nome}}</option>
+            </select>
+        </div>
+        <br>
+
+        <div>
+            <select class="form-control" ng-model="listSemestre.SemestreId">
+                <option value="">Selecione um Semestre</option>
+                <option ng-repeat="listaSem in semestre" ng value="{{listaSem.id}}">{{listaSem.descricao}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container">
+
+    <div class="col-md-5">
+
+        <table class="table table-striped table-hover">
+            <!--<caption><b>TABELA</b></caption>-->
+
+            <thead>
+            <!--CALUNAS-->
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Matricular</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="aluno in alunos">
+
+            <tr>
+                <td>{{aluno.cpf}}</td>
+                <td>{{aluno.nome}}</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-2 text-center" style="margin-top: 150px;">
+        <button class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-menu-right"></span>
+            <!--
+            <span class="glyphicon glyphicon-hand-right"></span>
+            <span class="glyphicon glyphicon-triangle-right"></span>
+            -->
+        </button>
+    </div>
+
+    <div class="col-md-5">
+
+        <table class="table table-striped table-hover">
+            <!-- <caption><b>TABELA</b></caption>-->
+
+            <thead>
+            <!--CALUNAS-->
+            <tr>
+                <th>NOME</th>
+                <th>CPF</th>
+            </tr>
+            </thead>
+
+            <tbody ng-repeat="aluno in alunos">
+            <!--LINHA 1-->
+            <tr>
+                <td>{{aluno.nome}}</td>
+                <td>{{aluno.cpf}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-info btn-block">
+            <span class="glyphicon glyphicon-arrow"></span>
+            Efetuar Matricula
+        </button>
+    </div>
+</div>
+<br>
+<br>
+<footer class="container-fluid bg-4 text-center">
+    <p>Projeto GitHub SinglePageApp <a href="https://github.com/LucianoFreire/Sistema-Academico-SinglePageApp.git">LucianoFreire</a></p>
+</footer>

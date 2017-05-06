@@ -110,6 +110,23 @@ angular.module("singlepageapp")
 
         };
 
+        $scope.listarAlunoPorDisciplina = function (id){
+
+            if(id){
+                var sucesso = function(dados){
+                    $scope.alunos = dados.data;
+                };
+
+                var erro = function(err){
+                    toastr.warning("Erro na Listagem dos Alunos Por Disciplina!", {closeButton: true} + err);
+                };
+                SistemaAcademicoAPIService.listarAlunoPorDisciplina(id).then(sucesso,erro);
+            }else{
+                $scope.alunos = [];
+            }
+
+        };
+
 
         $scope.listagemAlunoPorCurso(0);
         listarAluno();

@@ -41,4 +41,9 @@ angular.module("singlepageapp").config(["$routeProvider", function ($routeProvid
             controller: "cadastroAlunoController"
         });
 
+        $routeProvider.when("/matricula", {
+        templateUrl: "view/matricula.html",
+        controller: "matriculaController"
+        });
+
     }]);
