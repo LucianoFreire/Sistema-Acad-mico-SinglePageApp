@@ -115,7 +115,6 @@ angular.module("singlepageapp")
         };
 
 
-
         $scope.buscarDisciplinaPorCurso(0);
         listarCursos();
         listarDisciplina();

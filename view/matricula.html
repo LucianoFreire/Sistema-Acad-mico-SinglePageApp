@@ -9,7 +9,7 @@
 
         <div>
             <select class="form-control" ng-model="selectedCurso" ng-change="buscarDisciplinaPorCurso(selectedCurso)">
-                <option value="">Selecione um Curso</option>
+                <option value="">Selecionar Curso</option>
                 <option ng-repeat="curso in cursos" ng value="{{curso.id}}">{{curso.nome}}</option>
             </select>
         </div>
@@ -18,22 +18,22 @@
         <div>
             <select class="form-control" ng-model="selectedDisciplina"
                     ng-change="buscarDisciplinaPorCurso(selectedDisciplina)">
-                <option value="">Selecione uma Disciplina</option>
+                <option value="">Selecionar Disciplina</option>
                 <option ng-repeat="disciplina in disciplinas" ng value="{{disciplina.id}}">{{disciplina.nome}}</option>
             </select>
         </div>
         <br>
-
         <div>
             <select class="form-control" ng-model="listSemestre.SemestreId">
-                <option value="">Selecione um Semestre</option>
+                <option value="">Selecionar Semestre</option>
                 <option ng-repeat="listaSem in semestre" ng value="{{listaSem.id}}">{{listaSem.descricao}}</option>
             </select>
         </div>
     </div>
 </div>
-<hr>
-<div class="container">
+        <br>
+        <hr>
+<div class="container-fluid">
 
     <div class="col-md-5">
 
@@ -91,10 +91,7 @@
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-info btn-block">
-            <span class="glyphicon glyphicon-arrow"></span>
-            Efetuar Matricula
-        </button>
+        <button class="btn btn-info btn-block">EFETUAR MATRICULA</button>
     </div>
 </div>
 <br>
