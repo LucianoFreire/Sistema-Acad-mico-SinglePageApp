@@ -24,7 +24,9 @@
             <label>DISCIPLINA</label>
             <select class="form-control" ng-model="selectedDisciplina" ng-change="buscarAlunoPorCurso(selectedCurso)">
                 <option value="">Selecionar Disciplina</option>
-                <option ng-repeat="listarDisciplina in disciplina" ng value="{{listarDisciplina.id}}">{{listarDisciplina.nome}}</option>
+                <option ng-repeat="listarDisciplina in disciplina" ng value="{{listarDisciplina.id}}">
+                    {{listarDisciplina.nome}}
+                </option>
             </select>
 
             <br>
@@ -33,7 +35,9 @@
             <select class="form-control" ng-model="selectedSemestre"
                     ng-change="listarAlunoPorSemestre(selectedSemestre,selectedDisciplina)">
                 <option value="">Selecionar Semestre</option>
-                <option ng-repeat="listarSemestre in semestre" ng value="{{listarSemestre.id}}">{{listarSemestre.descricao}}</option>
+                <option ng-repeat="listarSemestre in semestre" ng value="{{listarSemestre.id}}">
+                    {{listarSemestre.descricao}}
+                </option>
             </select>
         </div>
     </div>
@@ -58,7 +62,8 @@
             <tr>
                 <td>{{varAluno.id}}</td>
                 <td>{{varAluno.nome}}</td>
-                <td><input type="checkbox" ng-model="selected" ng-checked="exist(varAluno)" ng-click="toggleSelection(varAluno)">
+                <td><input type="checkbox" ng-model="selected" ng-checked="exist(varAluno)"
+                           ng-click="toggleSelection(varAluno)">
                 </td>
             </tr>
             </tbody>
@@ -100,7 +105,8 @@
 
         <button class="btn btn-info btn-block" ng-click="salvarAlunoNaDisciplina(selectedDisciplina,selectedSemestre)">
             <span class="glyphicon glyphicon-arrow"></span>
-            EFETUAR MATRICULA </button>
+            EFETUAR MATRICULA
+        </button>
     </div>
 
 
