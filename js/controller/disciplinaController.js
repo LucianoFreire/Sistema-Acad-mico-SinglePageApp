@@ -1,116 +1,112 @@
-angular.module("singlepageapp")
-    .controller("disciplinaController", function ($scope, SistemaAcademicoAPIService, $location, toastr) {
+/**
+ * Created by LucianoFreire on 13/04/2017.
+ */
 
-        $scope.disciplinas = [];
+angular.module("singlepageapp").controller("DisciplinaController", function
+    ($scope, DisciplinaAPIService, CursoAPIService, toastr) {
 
-        $scope.cursos = [];
+    $scope.varDisciplina = {};
+    $scope.disciplina = [];
+    $scope.curso = [];
+    $scope.pagina = 1;
 
-        $scope.paginas_Paginacao = 1;
+    var listarDisciplinas = function () {
 
-
-        $scope.cadDisc = function (caminho) {
-            $location.url(caminho);
+        var sucesso = function (dados) {
+            $scope.disciplina = dados.data;
         };
 
-
-        var listarDisciplina = function () {
-            var listar = function (dados) {
-                $scope.disciplinas = dados.data;
-            };
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem das Disciplinas!", {closeButton: true} + err);
-            };
-
-            SistemaAcademicoAPIService.listarDisciplina().then(listar, erro);
-
+        var erro = function (err) {
+            toastr.warning("Erro na Listagem", {closeButton: true} + err);
         };
 
-        var listarCursos = function () {
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
+        DisciplinaAPIService.listarDisciplinas().then(sucesso, erro);
+    };
 
-            };
-
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem dos Cursos!", {closeButton: true} + err);
-            };
-
-            SistemaAcademicoAPIService.listarCursos().then(listar, erro);
-
-        };
-
-        $scope.buscarDisciplinaPorCurso = function (id) {
-
-            if (id) {
-                var sucesso = function (dados) {
-                    $scope.disciplinas = dados.data;
-                };
-                var erro = function (err) {
-                    toastr.warning("Erro na listagem por Curso!", {closeButton: true} + err);
-                };
-                SistemaAcademicoAPIService.buscarDisciplinaPorCurso(id).then(sucesso, erro);
-            } else {
-                listarDisciplina();
+    $scope.proxPag = function (pagina) {
+        $scope.pagina = pagina + 1;
+        DisciplinaAPIService.listarDisciplinaPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.disciplina = dados.data;
             }
-        };
+            ;
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
-        $scope.cadastrarDisciplina = function (disciplina) {
+    $scope.voltarPag = function (pagina) {
+        $scope.pagina = pagina - 1;
+        if ($scope.pagina == 0) {
+            $scope.pagina = 1;
+        }
 
-            SistemaAcademicoAPIService.cadastrarDisciplina(disciplina).then(function (dados) {
-                toastr.success('Disciplina Cadastrada com Sucesso!', {closeButton: true});
-            }, function (err) {
-                toastr.error("Erro ao Tentar Cadastrar Disciplina!", {closeButton: true});
-            });
-        };
-
-        $scope.proxPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao+1;
-            SistemaAcademicoAPIService.listarDisciplinaPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.disciplinas = dados.data;
-                };
-            },function (err){
-                toastr.warning("Erro na Listagem das Disciplinas!", {closeButton: true} + err);
-            });
-        };
-
-        //----------------------------------------------------------------------
-
-        $scope.voltarPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao-1;
-            if($scope.paginas_Paginacao == 0){
-                $scope.paginas_Paginacao = 1;
+        DisciplinaAPIService.listarDisciplinaPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.disciplina = dados.data;
             }
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
-            SistemaAcademicoAPIService.listarDisciplinaPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.disciplinas = dados.data;
-                }
-            },function (err){
-                toastr.warning("Erro na Listagem das Disciplinas!", {closeButton: true} + err);
+    var listarTodosCursos = function () {
 
-            });
+        var sucesso = function (dados) {
+            $scope.curso = dados.data;
         };
 
-        var listagemTodosCursos = function () {
+        var erro = function (err) {
+            toastr.warning("Erro na Listagen Todos Cursos", {closeButton: true} + err);
+        };
 
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
+        CursoAPIService.listarTodosCursos().then(sucesso, erro);
+
+    };
+
+
+    var buscarPorDisciplina = function () {
+
+        var sucesso = function (dados) {
+            $scope.disciplina = dados.data;
+        };
+
+        var erro = function (err) {
+            toastr.warning("Erro Listagem por Disciplina", {closeButton: true} + err);
+        };
+
+        DisciplinaAPIService.listarDisciplinas().then(sucesso, erro);
+
+    };
+
+    $scope.buscarDisciplinaPorCurso = function (id) {
+
+        if (id) {
+            var sucesso = function (dados) {
+                $scope.disciplina = dados.data;
             };
-
             var erro = function (err) {
-                toastr.warning("Erro na Listagem de Todos os Cursos!", {closeButton: true} + err);
+                toastr.warning("Erro na listagem por curso", {closeButton: true} + err);
             };
+            DisciplinaAPIService.buscarDisciplinaPorCurso(id).then(sucesso, erro);
+        } else {
+            listarDisciplinas();
+        }
+    };
 
-            SistemaAcademicoAPIService.listagemTodosCursos().then(listar, erro);
+    $scope.salvarDisciplina = function (disciplina) {
 
-        };
+        DisciplinaAPIService.salvarDisciplina(disciplina).then(function (dados) {
+            toastr.success('Disciplina cadastrada com sucesso!', {closeButton: true});
+        }, function (err) {
+            toastr.warning("Erro no cadastro de disciplina", {closeButton: true} + err);
 
+        });
+    };
 
-        $scope.buscarDisciplinaPorCurso(0);
-        listarCursos();
-        listarDisciplina();
-        listagemTodosCursos();
+    $scope.buscarDisciplinaPorCurso(0);
+    listarDisciplinas();
+    listarTodosCursos();
+    buscarPorDisciplina();
 
-
-    });
+});

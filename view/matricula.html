@@ -1,101 +1,107 @@
-<div class="container-fluid">
+<div class="container">
     <div class="page-header">
         <h2><b>MATRICULA</b></h2>
     </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-xs-6">
 
-        <div>
-            <select class="form-control" ng-model="selectedCurso" ng-change="buscarDisciplinaPorCurso(selectedCurso)">
+
+    <div>
+        <div class="col-md-5">
+
+            <label>CURSO</label>
+            <select class="form-control" ng-model="selectedCurso" ng-change="carregarDisciplinaPorCurso(selectedCurso)">
                 <option value="">Selecionar Curso</option>
-                <option ng-repeat="curso in cursos" ng value="{{curso.id}}">{{curso.nome}}</option>
+                <option ng-repeat="listarCursos in curso" ng value="{{listarCursos.id}}">{{listarCursos.nome}}</option>
             </select>
+
         </div>
-    </div>
-    <div class="col-xs-6">
-        <div>
-            <select class="form-control" ng-model="selectedDisciplina"
-                    ng-change="buscarDisciplinaPorCurso(selectedDisciplina)">
+
+        <div class="col-lg-2">
+
+        </div>
+
+        <div class="col-md-5">
+
+            <label>DISCIPLINA</label>
+            <select class="form-control" ng-model="selectedDisciplina" ng-change="buscarAlunoPorCurso(selectedCurso)">
                 <option value="">Selecionar Disciplina</option>
-                <option ng-repeat="disciplina in disciplinas" ng value="{{disciplina.id}}">{{disciplina.nome}}</option>
+                <option ng-repeat="listarDisciplina in disciplina" ng value="{{listarDisciplina.id}}">{{listarDisciplina.nome}}</option>
             </select>
-        </div>
-        <br>
-        <div>
-            <select class="form-control" ng-model="listSemestre.SemestreId">
+
+            <br>
+
+            <label>SEMESTRE</label>
+            <select class="form-control" ng-model="selectedSemestre"
+                    ng-change="listarAlunoPorSemestre(selectedSemestre,selectedDisciplina)">
                 <option value="">Selecionar Semestre</option>
-                <option ng-repeat="listaSem in semestre" ng value="{{listaSem.id}}">{{listaSem.descricao}}</option>
+                <option ng-repeat="listarSemestre in semestre" ng value="{{listarSemestre.id}}">{{listarSemestre.descricao}}</option>
             </select>
         </div>
     </div>
 </div>
-        <br>
-        <hr>
-<div class="container-fluid">
+
+<hr>
+
+<div class="container">
 
     <div class="col-md-5">
 
-        <table class="table table-striped table-hover">
-            <!--<caption><b>TABELA</b></caption>-->
-
+        <table class="table table-striped">
             <thead>
-            <!--CALUNAS-->
             <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Matricular</th>
-            </tr>
-            </thead>
-
-            <tbody ng-repeat="aluno in alunos">
-
-            <tr>
-                <td>{{aluno.cpf}}</td>
-                <td>{{aluno.nome}}</td>
-                <td><input type="checkbox"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="col-md-2 text-center" style="margin-top: 150px;">
-        <button class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-menu-right"></span>
-            <!--
-            <span class="glyphicon glyphicon-hand-right"></span>
-            <span class="glyphicon glyphicon-triangle-right"></span>
-            -->
-        </button>
-    </div>
-
-    <div class="col-md-5">
-
-        <table class="table table-striped table-hover">
-            <!-- <caption><b>TABELA</b></caption>-->
-
-            <thead>
-            <!--CALUNAS-->
-            <tr>
+                <th>MATRICULA</th>
                 <th>NOME</th>
-                <th>CPF</th>
+                <th>SELECT</th>
             </tr>
             </thead>
 
-            <tbody ng-repeat="aluno in alunos">
-            <!--LINHA 1-->
+            <tbody ng-repeat="varAluno in aluno">
             <tr>
-                <td>{{aluno.nome}}</td>
-                <td>{{aluno.cpf}}</td>
+                <td>{{varAluno.id}}</td>
+                <td>{{varAluno.nome}}</td>
+                <td><input type="checkbox" ng-model="selected" ng-checked="exist(varAluno)" ng-click="toggleSelection(varAluno)">
+                </td>
             </tr>
             </tbody>
         </table>
-        <button class="btn btn-info btn-block">EFETUAR MATRICULA</button>
     </div>
+
+    <div class="col-md-2 text-center" style="margin-top: 167px;">
+        <button class="btn btn-default btn-block" ng-click="enviarAlunos()">
+            <span class="glyphicon glyphicon-menu-right"></span>
+        </button>
+
+
+    </div>
+
+    <div class="col-md-5">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>MATRICULA</th>
+                <th>NOME</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="SelectListagem in alunoPorSemestre">
+                <td>{{SelectListagem.alunoid}}</td>
+                <td>{{SelectListagem.alunonome}}</td>
+            </tr>
+
+            <tr ng-repeat="SelectCadastro in alunosParaCadastro">
+                <td>{{SelectCadastro.id}}</td>
+                <td>{{SelectCadastro.nome}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <button class="btn btn-info btn-block" ng-click="salvarAlunoNaDisciplina(selectedDisciplina,selectedSemestre)">
+            <span class="glyphicon glyphicon-arrow"></span>
+            EFETUAR MATRICULA </button>
+    </div>
+
+
 </div>
-<br>
-<br>
-<footer class="container-fluid bg-4 text-center">
-    <p>Projeto GitHub SinglePageApp <a href="https://github.com/LucianoFreire/Sistema-Academico-SinglePageApp.git">LucianoFreire</a></p>
-</footer>

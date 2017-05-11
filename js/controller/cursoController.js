@@ -1,77 +1,63 @@
-angular.module("singlepageapp")
-    .controller("cursoController", function ($scope, SistemaAcademicoAPIService, $location, toastr) {
+/**
+ * Created by LucianoFreire on 12/04/2017.
+ */
 
+angular.module("singlepageapp").controller("CursoController", function
+    ($scope, CursoAPIService, toastr) {
 
-        $scope.cursos = [];
-        $scope.paginas_Paginacao = 1;
+    $scope.curs = {};
+    $scope.curso = [];
+    $scope.pagina = 1;
 
-
-        $scope.cadCurso = function (caminho) {
-            $location.url(caminho);
+    var listarCursos = function () {
+        var sucesso = function (dados) {
+            $scope.curso = dados.data;
         };
 
-
-        var listarCursos = function () {
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
-
-
-            };
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem dos Cursos!", {closeButton: true} + err);
-            };
-
-            SistemaAcademicoAPIService.listarCursos().then(listar, erro);
-
+        var erro = function (err) {
+            toastr.warning("Erro na Listagem", {closeButton: true} + err);
         };
 
+        CursoAPIService.listarCursos().then(sucesso, erro);
+    };
 
-        $scope.proxPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao+1;
-            SistemaAcademicoAPIService.listarCursoPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.cursos = dados.data;
-                };
-            },function (err){
-                toastr.warning("Erro na Listagem dos Cursos!", {closeButton: true} + err);
-            });
-        };
-
-        //----------------------------------------------------------------------
-
-        $scope.voltarPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao-1;
-            if($scope.paginas_Paginacao == 0){
-                $scope.paginas_Paginacao = 1;
+    $scope.proxPag = function (pagina) {
+        $scope.pagina = pagina + 1;
+        CursoAPIService.listarCursoPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.curso = dados.data;
             }
+            ;
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
-            SistemaAcademicoAPIService.listarCursoPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.cursos = dados.data;
-                }
-            },function (err){
-                toastr.warning("Erro na Listagem dos Cursos!", {closeButton: true} + err);
+    $scope.voltarPag = function (pagina) {
+        $scope.pagina = pagina - 1;
+        if ($scope.pagina == 0) {
+            $scope.pagina = 1;
+        }
 
-            });
-        };
+        CursoAPIService.listarCursoPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.curso = dados.data;
+            }
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
-        var listagemTodosCursos = function () {
+    $scope.salvarCurso = function (curso) {
 
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
-            };
+        CursoAPIService.salvarCurso(curso).then(function (dados) {
+            toastr.success('Curso cadastrado com sucesso!', {closeButton: true});
+        }, function (err) {
+            toastr.warning("Erro ao cadastrar Curso!", {closeButton: true} + err);
+        });
+    };
 
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem de Todos os Cursos!", {closeButton: true} + err);
-            };
-
-            SistemaAcademicoAPIService.listagemTodosCursos().then(listar, erro);
-
-        };
-
-
-        listarCursos();
-        //listagemTodosCursos();
+    listarCursos();
 
 
-    });
+});

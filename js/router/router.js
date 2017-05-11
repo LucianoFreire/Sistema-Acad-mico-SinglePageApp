@@ -1,49 +1,47 @@
+/**
+ * Created by LucianoFreire on 13/04/2017.
+ */
 
 angular.module("singlepageapp").config(["$routeProvider", function ($routeProvider) {
 
-        $routeProvider.when("/", {
-            templateUrl: "view/home.html",
-            controller: "homeController"
-        });
+    $routeProvider.when("/", {
+        templateUrl: "view/home.html"
+    });
 
-        $routeProvider.when("/cadastro", {
-            templateUrl: "view/cadastro.html",
-            controller: "cadastroController"
-        });
+    $routeProvider.when("/Aluno", {
+        templateUrl: "view/Aluno.html",
+        controller: "AlunoController"
 
-        $routeProvider.when("/curso", {
-            templateUrl: "view/curso.html",
-            controller: "cursoController"
-        });
+    });
 
-        $routeProvider.when("/cadastrocurso", {
-            templateUrl: "view/cadastrocurso.html",
-            controller: "cadastroCursoController"
-        });
+    $routeProvider.when("/CadastroDeAluno", {
+        templateUrl: "view/CadastroAluno.html",
+        controller: "AlunoController"
+    });
 
-        $routeProvider.when("/disciplina", {
-            templateUrl: "view/disciplina.html",
-            controller: "disciplinaController"
-        });
+    $routeProvider.when("/Curso", {
+        templateUrl: "view/Curso.html",
+        controller: "CursoController"
+    });
 
-        $routeProvider.when("/cadastrodisciplina", {
-           templateUrl: "view/cadastrodisciplina.html",
-           controller: "cadastroDisciplinaController"
-        });
+    $routeProvider.when("/CadastroDeCurso", {
+        templateUrl: "view/CadastroCurso.html",
+        controller: "CursoController"
+    });
 
-        $routeProvider.when("/aluno", {
-            templateUrl: "view/aluno.html",
-            controller: "alunoController"
-        });
+    $routeProvider.when("/Disciplina", {
+        templateUrl: "view/Disciplina.html",
+        controller: "DisciplinaController"
+    });
 
-        $routeProvider.when("/cadastroaluno", {
-            templateUrl: "view/cadastroaluno.html",
-            controller: "cadastroAlunoController"
-        });
+    $routeProvider.when("/CadastroDeDisciplina", {
+        templateUrl: "view/CadastroDisciplina.html",
+        controller: "DisciplinaController"
+    });
 
-        $routeProvider.when("/matricula", {
-        templateUrl: "view/matricula.html",
-        controller: "matriculaController"
-        });
+    $routeProvider.when("/Matricula", {
+        templateUrl: "view/Matricula.html",
+        controller: "MatriculaController"
+    });
 
-    }]);
+}]);

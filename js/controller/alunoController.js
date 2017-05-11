@@ -1,137 +1,117 @@
-angular.module("singlepageapp")
-    .controller("alunoController", function ($scope, SistemaAcademicoAPIService, $location, toastr) {
+/**
+ * Created by LucianoFreire on 12/04/2017.
+ */
 
-        $scope.alunos = [];
-
-        $scope.cursos = [];
-
-        $scope.paginas_Paginacao = 1;
+angular.module("singlepageapp").controller("AlunoController", function
+    ($scope, AlunoAPIService, CursoAPIService, toastr) {
 
 
-        $scope.cadAluno = function (caminho) {
+    $scope.varAluno = {};
+    $scope.aluno = [];
+    $scope.curso = [];
+    $scope.pagina = 1;
 
-            $location.url(caminho);
+
+    var listarAlunos = function () {
+
+        var sucesso = function (dados) {
+            $scope.aluno = dados.data;
         };
 
-        var listarCursos = function () {
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
-
-            };
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem dos Cursos!", {closeButton: true} + err);
-            };
-
-            SistemaAcademicoAPIService.listarCursos().then(listar, erro);
-
+        var erro = function (err) {
+            toastr.warning("Erro na Listagem de Alunos", {closeButton: true} + err);
         };
 
-        var listarAluno = function () {
-            var listar = function (dados) {
-                $scope.alunos = dados.data;
-            };
-            var erro = function (err) {
-                toastr.warning("Erro na Listagem dos Alunos!", {closeButton: true} + err);
-            };
+        AlunoAPIService.listarAlunos().then(sucesso, erro);
+    };
 
-            SistemaAcademicoAPIService.listarAluno().then(listar, erro);
-
-        };
-
-        $scope.listagemAlunoPorCurso = function (id) {
-
-            if (id) {
-                var sucesso = function (dados) {
-                    $scope.alunos = dados.data;
-                };
-
-                var erro = function (err) {
-                    toastr.warning("Erro na Listagem de Alunos por Curso!", {closeButton: true} + err);
-                };
-                SistemaAcademicoAPIService.listagemAlunoPorCurso(id).then(sucesso, erro);
-            } else {
-                listarAluno();
+    $scope.proxPag = function (pagina) {
+        $scope.pagina = pagina + 1;
+        AlunoAPIService.listarAlunosPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.aluno = dados.data;
             }
             ;
-        };
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
 
-        $scope.cadastrarAluno = function (aluno) {
+    $scope.voltarPag = function (pagina) {
+        $scope.pagina = pagina - 1;
+        if ($scope.pagina == 0) {
+            $scope.pagina = 1;
+        }
 
-            SistemaAcademicoAPIService.cadastrarAluno(aluno).then(function (dados) {
-                toastr.success("Aluno Cadastrado com Sucesso!", {closeButton: true});
-            }, function (err) {
-                toastr.error("Erro ao Tentar Cadastrar Aluno!", {closeButton: true});
-            });
-        };
-
-
-        $scope.proxPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao+1;
-            SistemaAcademicoAPIService.listarAlunosPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.alunos = dados.data;
-                };
-            },function (err){
-                toastr.warning("Erro na Listagem dos Alunos!", {closeButton: true} + err);
-            });
-        };
-
-        //----------------------------------------------------------------------
-
-        $scope.voltarPag = function (paginas_Paginacao){
-            $scope.paginas_Paginacao = paginas_Paginacao-1;
-            if($scope.paginas_Paginacao == 0){
-                $scope.paginas_Paginacao = 1;
+        AlunoAPIService.listarAlunosPorPagina($scope.pagina).then(function (dados) {
+            if (!dados.data.length == 0) {
+                $scope.aluno = dados.data;
             }
+        }, function (err) {
+            toastr.warning("Erro", {closeButton: true} + err);
+        });
+    };
 
-            SistemaAcademicoAPIService.listarAlunosPorPagina($scope.paginas_Paginacao).then(function (dados) {
-                if (!dados.data.length == 0) {
-                    $scope.alunos = dados.data;
-                }
-            },function (err){
-                toastr.warning("Erro na Listagem dos Alunos!", {closeButton: true} + err);
+    var listarTodosCursos = function () {
 
-            });
+        var sucesso = function (dados) {
+            $scope.curso = dados.data;
         };
 
+        var erro = function (err) {
+            toastr.warning("Erro na Listagem Cursos", {closeButton: true} + err);
+        };
 
-        var listagemTodosCursos = function () {
+        CursoAPIService.listarTodosCursos().then(sucesso, erro);
 
-            var listar = function (dados) {
-                $scope.cursos = dados.data;
+    };
+
+    var buscarPorAluno = function () {
+
+        var sucesso = function (dados) {
+            $scope.aluno = dados.data;
+        };
+
+        var erro = function (err) {
+            toastr.warning("Erro Listagem por Aluno", {closeButton: true} + err);
+        };
+
+        AlunoAPIService.listarAlunos().then(sucesso, erro);
+
+    };
+
+    $scope.buscarAlunoPorCurso = function (id) {
+
+        if (id) {
+            var sucesso = function (dados) {
+                $scope.aluno = dados.data;
             };
 
             var erro = function (err) {
-                toastr.warning("Erro na Listagem de Todos os Cursos!", {closeButton: true} + err);
+                toastr.warning("Erro na Busca por Curso", {closeButton: true} + err);
+
             };
+            AlunoAPIService.buscarAlunoPorCurso(id).then(sucesso, erro);
+        } else {
+            listarAlunos();
+        }
+        ;
+    };
 
-            SistemaAcademicoAPIService.listagemTodosCursos().then(listar, erro);
+    $scope.salvarAluno = function (aluno) {
 
-        };
+        AlunoAPIService.salvarAluno(aluno).then(function (dados) {
+            toastr.success('Aluno cadastrado com Sucesso!', {closeButton: true});
+        }, function (err) {
+            toastr.warning("Erro no Cadastro de Aluno", {closeButton: true} + err);
+        });
+    };
 
-        $scope.listarAlunoPorDisciplina = function (id){
-
-            if(id){
-                var sucesso = function(dados){
-                    $scope.alunos = dados.data;
-                };
-
-                var erro = function(err){
-                    toastr.warning("Erro na Listagem dos Alunos Por Disciplina!", {closeButton: true} + err);
-                };
-                SistemaAcademicoAPIService.listarAlunoPorDisciplina(id).then(sucesso,erro);
-            }else{
-                $scope.alunos = [];
-            }
-
-        };
-
-
-        $scope.listagemAlunoPorCurso(0);
-        listarAluno();
-        listarCursos();
-        listagemTodosCursos();
+    $scope.buscarAlunoPorCurso(0);
+    listarAlunos();
+    buscarPorAluno();
+    listarTodosCursos();
 
 
-    });
+});

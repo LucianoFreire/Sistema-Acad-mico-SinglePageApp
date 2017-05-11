@@ -2,38 +2,36 @@
 <html lang="en" ng-app="singlepageapp">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>SinglePageApp</title>
+
     <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.css"/>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/router/router.js"></script>
-
-    <script src="js/controller/cadastroController.js"></script>
-    <script src="js/controller/cursoController.js"></script>
-    <script src="js/controller/cadastroCursoController.js"></script>
-    <script src="js/controller/disciplinaController.js"></script>
-    <script src="js/controller/cadastroDisciplinaController.js"></script>
-    <script src="js/controller/alunoController.js"></script>
-    <script src="js/controller/cadastroAlunoController.js"></script>
-    <script src="js/controller/homeController.js"></script>
-    <script src="js/controller/matriculaController.js"></script>
-
-    <script src="js/service/SistemaAcademicoAPIService.js"></script>
-
     <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/router/router.js"></script>
+    <script src="js/service/AlunoAPIService.js"></script>
+    <script src="js/service/CursoAPIService.js"></script>
+    <script src="js/service/DisciplinaAPIService.js"></script>
+    <script src="js/service/MatriculaAPIService.js"></script>
+    <script src="js/controller/AlunoController.js"></script>
+    <script src="js/controller/CursoController.js"></script>
+    <script src="js/controller/DisciplinaController.js"></script>
+    <script src="js/controller/MatriculaController.js"></script>
 
 
 </head>
 <body>
-    <div ng-include="'view/cabecalho.html'"></div>
-    <div class="container-fluid">
-        <div ng-view="view"></div>
-    </div>
+<div ng-include="'view/cabecalho.html'"></div>
+<div class="container">
+    <div ng-view="view"></div>
+</div>
 </body>
 </html>

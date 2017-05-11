@@ -1,34 +1,19 @@
-<div class="container-fluid">
+<div class="container">
     <div class="page-header">
         <h2><b>CADASTRO DE CURSO</b></h2>
     </div>
-    <br>
-    <br>
 
     <form>
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input required ng-model="curso.nome" id="nome" type="text" class="form-control" name="nome"
-                   placeholder="Nome do Curso">
+        <div class="form-group">
+            <label>NOME</label>
+            <input class="form-control" ng-model="cadCurso.nome" type="text">
         </div>
-        <br>
-
-        <hr>
-        <div class="row">
-            <div class="col-md-10">
-                <button ng-disabled="!curso.nome" class="btn btn-primary" role="button"
-                        ng-click="cadastrarCurso(curso)">
-                    <span class="glyphicon glyphicon-floppy-saved"></span> Salvar
-                </button>
-            </div>
-
-            <nav class="col-md-1">
-                <ul>
-                    <a href="#!curso" class="btn btn-info" role="button">
-                        <span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;Voltar</a>
-                </ul>
-            </nav>
-        </div>
-
     </form>
+
+    <a href="#!Curso">
+        <button class="btn btn-md btn-info" ng-click="salvarCurso(cadCurso)">
+            <span class="glyphicon glyphicon-floppy-saved"></span>
+            Salvar
+        </button>
+    </a>
 </div>
